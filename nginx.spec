@@ -19,7 +19,8 @@ Requires(pre):	shadow-utils
 Requires(postun):	initscripts
 Provides:	web server
 
-Source:  
+Source0:	http://nginx.org/download/%{name}-%{version}.tar.gz  
+Source1:	nginx.sysinit
 
 %description
 Nginx (pronounced "engine-x") is an open source reverse proxy server for HTTP, HTTPS, SMTP, POP3, and IMAP protocols, as well as a load balancer, HTTP cache, and a web server (origin server). The nginx project started with a strong focus on high concurrency, high performance and low memory usage. It is licensed under the 2-clause BSD-like license and it runs on Linux, BSD variants, Mac OS X, Solaris, AIX, HP-UX, as well as on other *nix flavors.[7] It also has a proof of concept port for Microsoft Windows.
@@ -37,6 +38,7 @@ make install DESDIR="%{buildroot}"
 
 %{__install} -p -d -m 0755 %{buildroot}/var/run/nginx
 %{__install} -p -d -m 0755 %{buildroot}/var/log/nginx
+%{__install} -p -D -m 0755 %{SOURCE1} %{buildroot}/etc/rc.d/init.d/nginx
 
 %clean
 rm -rf %{buildroot}
@@ -68,8 +70,11 @@ fi
 /usr/local/nginx/html/50x.html
 /usr/local/nginx/html/index.html
 %attr(0755,root,root)	%{_initrddir}/%{name}
+%attr(0755,root,root)	/etc/rc.d/init.d/nginx
 
 %changelog
-* Wed Nov 26 2014 Chen YiChao	<cycxhen@hotmail.com> -1.7-1
--Initial version
+* Wed Nov 26 2014 Chen Yichao	<cycxhen@hotmail.com> -1.6.2-2
+- Add sysv script /etc/rc.d/init.d/nginx
+* Wed Nov 26 2014 Chen YiChao	<cycxhen@hotmail.com> -1.6.2-1
+- Initial version
 #End

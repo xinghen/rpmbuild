@@ -1,1 +1,1 @@
-rpm制作学习
+rpmbuild学习
