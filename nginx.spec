@@ -8,7 +8,7 @@ Release:	1%{?dist}
 Summary:	   Nginx is an open source reverse proxy server for HTTP,HTTPS,SMTP,POP3,and IMAP protocols,as well as a load balancer,cache,and a web server.
 Group:	Applications/Internet
 Vendor:	 yichao.chen
-Packager:	yichao.chen(cycxhen@hotmail.com)
+Packager:	YiChao Chen <cycxhen@hotmail.com>
 
 License:	BSD
 URL:	http://nginx.org/download/nginx-1.6.2.tar.gz
@@ -16,7 +16,7 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires:	gcc,binutils,zlib,zlib-devel,openssl-devel
 Requires:	pcre,openssl,gd
 Requires(pre):	shadow-utils
-Requires(postun):	initscripts
+Requires(postun):	initscripts,chkconfig
 Provides:	web server
 
 Source0:	http://nginx.org/download/%{name}-%{version}.tar.gz  
@@ -45,7 +45,7 @@ rm -rf %{buildroot}
 
 %pre
 if [ $1 == 1 ];then
-	/usr/sbin/useradd -s /sbin/nologin -r nginx 2>/dev/null || :
+	/usr/sbin/useradd -s /sbin/nologin -r %{nginx_user} 2>/dev/null || :
 fi
 
 %post
@@ -56,7 +56,7 @@ if [ $1 == 1 ];then
 if [ $1 == 0 ];then
 	/sbin/service %{name} stop >/dev/null 2>&1
 	/sbin/chkconfig --del %{name}
-	userdel nginx
+	userdel %{nginx_user}
 fi
 
 %files
