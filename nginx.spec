@@ -3,7 +3,7 @@
 %define	nginx_prefix	/usr/local/nginx
 
 Name:	nginx
-Version:	1.6.2
+Version:	1.7.7
 Release:	1%{?dist}
 Summary:	   Nginx is an open source reverse proxy server for HTTP,HTTPS,SMTP,POP3,and IMAP protocols,as well as a load balancer,cache,and a web server.
 Group:	Applications/Internet
@@ -75,6 +75,7 @@ fi
 %changelog
 * Wed Nov 26 2014 Chen Yichao	<cycxhen@hotmail.com> -1.6.2-2
 - Add sysv script /etc/rc.d/init.d/nginx
+- Update nginx version to 1.7.7
 * Wed Nov 26 2014 Chen YiChao	<cycxhen@hotmail.com> -1.6.2-1
 - Initial version
 #End
