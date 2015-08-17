@@ -64,6 +64,7 @@ make %{?_smp_mflags}
 %{__rm} -rf %{buildroot}
 make install DESTDIR=%{buildroot}
 
+
 %{__install} -p -d -m 0755 %{buildroot}/var/run/mysql
 %{__install} -p -d -m 0755 %{buildroot}/var/log/mysql
 %{__install} -p -D -m 0644 %{SOURCE1} %{buildroot}/usr/local/mysql/my.cnf
@@ -79,10 +80,12 @@ fi
 
 %post
 if [ $1 == 1 ];then
+        export PATH=$PATH:/usr/local/mysql/bin
+        /usr/local/mysql/scripts/mysql_install_db --user=%{mysql_user} --basedir=%{mysql_prefix} --datadir=%{mysql_prefix}/data >/dev/null 2>&1
 	/sbin/chkconfig --add %{name}d
-        /usr/local/mysql/scripts/mysql_install_db --user=%{mysql_user} --basedir=%{mysql_prefix} --datadir=%{mysql_prefix}/data
         /bin/chown -R mysql:mysql /var/run/mysql/
         /bin/chown -R mysql:mysql /var/log/mysql/
+        /bin/chown -R mysql:mysql /usr/local/mysql/
 fi
 
 %preun
