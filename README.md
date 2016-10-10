@@ -1,1 +1,1 @@
-rpmbuildѧϰ
+rpmbuild模板文件
